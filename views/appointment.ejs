@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("layouts/header")-%>
+  <body id="page-top">
+    <!-- Navigation-->
+    <%- include("layouts/navbar")-%>
+
+    <!-- Masthead-->
+    <section class="page-section" id="contact">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-lg-8 col-xl-6 text-center">
+            <h2 class="mt-0">Appointments Registration</h2>
+            <hr class="divider" />
+          </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+          <div class="col-lg-6">
+            <% if(appointment != null){%>
+            <form action="/insertAppointment" method="post">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  readonly
+                  type="text"
+                  class="form-control mt-2"
+                  id="date"
+                  name="date"
+                  value="<%= date %>"
+                  min="<%=new Date().toISOString().split('T')[0]%>"
+                />
+                <label for="date">Date</label>
+              </div>
+              <%} else{%><form action="/getAppointments" method="GET" >
+                <div class="form-floating mb-3">
+                    <input
+                    type="date"
+                    class="form-control mt-2"
+                    id="date"
+                    name="date"
+                    required
+                    min="<%=new Date().toISOString().split('T')[0]%>"
+                    />
+                    <label for="date">Date</label>
+                  </div>
+                  <% } if(appointment == null){%>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-xl" type="submit">
+                          Submit
+                        </button>
+                      </div>
+              <!-- Message input-->
+
+              <% } else {
+                      let timeslots = ["9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","1:00","1:30","2:00"]%>
+                      <div class="form-floating mb-3">
+                <select id="time" class="form-control" name="time">
+                    <% for(let i = 0;i<timeslots.length;i++){ 
+                              if(appointment.includes(timeslots[i])){
+                                %>
+                                <option class="bg-secondary text-white" disabled><%=timeslots[i]%></option>
+                              <%}else{%>
+                              <option name="<%=timeslots[i]%>"><%=timeslots[i]%></option>
+                          <% }} %> 
+                        </select>
+                        <label for="lname">Select time</label>
+                        </div>
+              <!-- Submit Button-->
+              <div class="col-12 text-center mt-5">
+                        <a href="/appointment">select another date</a>
+                      </div>
+              <div class="d-grid">
+                <button class="btn btn-primary btn-xl mt-5" type="submit">
+                  Submit
+                </button>
+              </div>
+              <% }%>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer-->
+
+    <%- include("layouts/footer")-%> <%- include("layouts/scripts")-%>
+
+    <!-- Bootstrap core JS-->
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("layouts/header")-%>
+  <body id="page-top">
+    <!-- Navigation-->
+    <%- include("layouts/navbar")-%>
+
+    <!-- Masthead-->
+    <section class="page-section" id="contact">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 mt-4 mb-4 gx-lg-5 justify-content-center">
+          <div class="col-lg-8 col-xl-6 text-center">
+            <h2 class="mt-0">Personal And Car information</h2>
+            <hr class="divider" />
+          </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+          <div class="col-lg-6">
+            <% if(testType == null) {%>
+                <form class="row g-3" action="/driversByType" method="GET">
+                        <% }else if(testType != null &&drivers != null && data == null){ %> 
+                            <form class="row g-3" action="/driversByName" method="GET">
+                                <% }else if(testType!= null && drivers != null && data != null){ %> 
+                                    <form class="row g-3" action="/addDriverResult" method="POST">
+                        <%}%>
+            <div class="form-floating mb-3">
+              </select>
+              <% if (testType != null) {%> 
+                <input type="hidden" id="testType" value="<%=testType%>" name="testType"/>
+                <select disabled
+                class="form-control"
+              >
+                  <% if(testType == 'gTest') {%> 
+                  <option value="gTest" selected>G Test</option>
+                  <option value="g2Test" >G2 Test</option>
+                  <%}else{%>
+                  <option  value="gTest" >G Test</option>
+                  <option  value="g2Test" selected>G2 Test</option>
+                  <%}%>
+                </select>
+                <div class="col-12 text-center mt-4">
+                  <a href="/examiner">select another type</a>
+                </div>
+                <% }else{ %> 
+                    <select
+                    id="testType"
+                    class="form-control"
+                    name="testType"
+                  >
+                      <option value="gTest">G Test</option>
+                      <option value="g2Test">G2 Test</option>
+                    </select>
+                    <%}%>
+              <label for="lname">Select Usertype</label>
+            </div>
+            <% if(drivers != null ) {%> 
+                <div class="form-floating mb-3">
+                    <select
+                    id="firstName"
+                    class="form-control"
+                    name="firstName">
+                    <% for(let i = 0;i<drivers.length;i++){ 
+                        if(drivers[i].firstName == data?.firstName){%>
+                            <option selected><%=drivers[i].firstName%></option>
+                            <%} else{%>
+                            <option><%=drivers[i].firstName%></option>
+                      <% }} %> 
+                    </select>
+                    </div>
+                    <%} else if(testType != null && drivers == null){%>
+                        <div class="form-floating mb-3">
+                            <select  id="firstname" class="form-control mt-2" name="firstname">
+                                <% for(let i = 0;i<drivers.length;i++){ %>
+                                      <option ><%=drivers[i].firstname%></option>
+                                <% } %> 
+                            </select>
+                            <label for="firstname">Select Driver</label>
+                        </div>
+                        
+                          <% } if(data != null){%> 
+                            <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+              <div class="col-lg-12 mt-5">
+                
+                <div class="form-floating mb-3">
+                    <input
+                    class="form-control"
+                    id="fname"
+                    type="text"
+                    placeholder="Enter your first name..."
+                    value="<%= data?.firstName %>"
+                    />
+                    <label >Full name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="make"
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  value="<%= data?.car_details?.make %>"
+                />
+                <label >Make</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="model"
+                  type="text"
+                  placeholder="Enter your model..."
+                  value="<%= data?.car_details?.model %>"
+                />
+                <label >Car Model</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="year"
+                  type="number"
+                  placeholder="name@example.com"
+                  value="<%= data?.car_details?.year %>"
+                />
+                <label >Year</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="platNumber"
+                  type="tel"
+                  placeholder="Enter plat number"
+                  value="<%= data?.car_details?.platNumber %>"
+                />
+                <label >plat number</label>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea
+                  class="form-control"
+                  id="comment"
+                  type="tel"
+                  placeholder="Enter comment"
+                  name="comment" required 
+                ></textarea>
+                <label for="comment">Comment</label>
+              </div>
+              <div class="form-floating mt-5 text-center">
+                <h6 for="result" class="form-label">Result</h6>
+                <div class="col-md-12">
+                          <input
+                            type="radio"
+                            id="pass"
+                            name="result"
+                            value="pass"
+                          />
+                          <label for="pass">Pass</label>
+                        </div>
+                        <div class="col-md-12">
+                          <input
+                            type="radio"
+                            id="fail"
+                            name="result"
+                            value="fail"
+                          />
+                          <label for="fail">Fail</label>
+                        </div>
+              </div>
+            </div>
+        </div>
+            <%}if(testType == null) {%>
+                <div class="d-grid mt-4">
+                    <button class="btn btn-primary btn-xl" type="submit">
+                        Submit Type
+                    </button>
+                </div>
+             <% }else if(testType != null && drivers != null && data == null){ %> 
+                <div class="d-grid mt-4">
+                    <button class="btn btn-primary btn-xl" type="submit">
+                    Submit Driver
+                    </button>
+                </div>
+            <% }else if(testType!= null && drivers != null && data != null){ %> 
+                <div class="d-grid mt-4">
+                    <button class="btn btn-primary btn-xl" type="submit">
+                        Submit
+                    </button>
+                </div>
+            <%}%>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer-->
+
+    <%- include("layouts/footer")-%> <%- include("layouts/scripts")-%>
+
+    <!-- Bootstrap core JS-->
+  </body>
+</html>

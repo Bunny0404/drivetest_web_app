@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("layouts/header")-%>
+  <body id="page-top">
+    <!-- Navigation-->
+    <%- include("layouts/navbar")-%>
+
+    <!-- Masthead-->
+    <section class="page-section" id="contact">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-lg-8 col-xl-6 text-center">
+            <h2 class="mt-0">Personal And Car information</h2>
+            <hr class="divider" />
+          </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+          <div class="col-lg-6">
+            <% if(appointment != null && appointment.length > 0){
+              %>
+              <form class="row g-3" action="/update" method="POST">
+                <input type="hidden" name="testType" value="gTest"/>
+                <% } else{ %> 
+                  <form class="row g-3" action="/getAppointmentsGDriver" method="GET">
+                    <% } %> 
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="fname"
+                  type="text"
+                  placeholder="Enter your first name..."
+                  name="firstName" required value="<%= data?.firstName %>"
+                />
+                <label >Full name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="lname"
+                  type="lname"
+                  placeholder="name@example.com"
+                  name="lastName" required value="<%= data?.lastName %>"
+                />
+                <label >last name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="licenceNumber"
+                  type="text"
+                  placeholder="Enter your licence number..."
+                  name="licenceNumber" required value="<%= data?.licenceNumber %>"
+                />
+                <label >Enter your licence number</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="age"
+                  type="number"
+                  placeholder="Enter your age..."
+                  name="age" required value="<%= data?.age %>"
+                />
+                <label >Full age</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="bdate"
+                  type="date"
+                  placeholder="name@example.com"
+                  name="bDate" value="<%=new Date(data?.bDate).toISOString().split('T')[0]%>"
+                />
+                <label >Birthdate</label>
+              </div>
+              <% if(data?.car_details != undefined){ 
+                %> 
+
+                <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="make"
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  name="make" required value="<%= data?.car_details?.make %>"
+                />
+                <label >Make</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="model"
+                  type="text"
+                  placeholder="Enter your model..."
+                  name="model" required value="<%= data?.car_details?.model %>"
+                />
+                <label >Car Model</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="year"
+                  type="number"
+                  placeholder="name@example.com"
+                  name="year" required value="<%= data?.car_details?.year %>"
+                />
+                <label >Year</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="platNumber"
+                  type="tel"
+                  placeholder="Enter plat number"
+                  name="platNumber" required value="<%= data?.car_details?.platNumber %>"
+                />
+                <label >plat number</label>
+              </div>
+                  <% } else { %> 
+                    <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="make"
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  name="make" required value="<%= data?.make %>"
+                />
+                <label >Make</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="model"
+                  type="text"
+                  placeholder="Enter your model..."
+                  name="model" required value="<%= data?.model %>"
+                />
+                <label >Car Model</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="year"
+                  type="number"
+                  placeholder="name@example.com"
+                  name="year" required value="<%= data?.year %>"
+                />
+                <label >Year</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="platNumber"
+                  type="tel"
+                  placeholder="Enter plat number"
+                  name="platNumber" required value="<%= data?.platNumber %>"
+                />
+                <label >plat number</label>
+              </div>
+                    <% }%>
+              <h3 class="text-center mt-4">Appointment Booking</h3>
+              <div>
+                <% if(data?.date == null || data?.time == null){
+                  if(appointment != null){%>
+                  <div class="col-md-12 text-center mt-5">
+                    <label  class="form-label">Date</label>
+                    <input 
+                    type="date"
+                    class="form-control mt-2"
+                    id="date"
+                    name="date"
+                    value="<%=new Date(date).toISOString().split('T')[0]%>"
+                    min="<%=new Date().toISOString().split('T')[0]%>"
+                    />
+                  </div>
+                  <div class="form-floating mb-3">
+                      <%if(appointment != ""){%>
+                        <select id="time" class="form-control mt-2" name="time">
+                          <% for(let i = 0;i<appointment.length;i++){%>
+                            <option ><%=appointment[i]%></option>
+                          <% }%></select><label >Select time</label><%}else{ %> 
+                            <h2>Sorry,there are no slots available for this date</h2>
+                            <%}%>
+                            
+                      </div>
+              <div class="d-grid">
+                <button class="btn btn-primary btn-xl" type="submit">
+                  Submit
+                </button>
+              </div>
+              <%} else{%>
+                <div class="form-floating mb-3">
+                  <input
+                  type="date"
+                  class="form-control mt-2"
+                  id="date"
+                  name="date"
+                  required
+                  min="<%=new Date().toISOString().split('T')[0]%>"
+                  />
+                  <label>Date</label>
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-xl" type="submit">
+                    Submit
+                  </button>
+                </div>
+                <% } %>
+              </div>
+              <% }else if(data?.result == "pass"){ %> 
+                <div class="form-floating mb-3">
+                <input
+                disabled
+                  class="form-control"
+                  id="comment"
+                  type="text"
+                  name="comment" value="<%= data?.comment %>"
+                />
+                <label >Comment</label>
+              </div>
+                    <div class="col-12 text-center mt-5">
+                      <h3>you have successfully passed this exam</h3>
+                    </div> 
+                    <% } else if(data?.result == "fail"){%> 
+                      <div class="form-floating mb-3">
+                <input
+                disabled
+                  class="form-control"
+                  id="comment"
+                  type="text"
+                  name="comment" value="<%= data?.comment %>"
+                />
+                <label >Comment</label>
+              </div>
+                    <div class="col-12 text-center mt-5">
+                      <h3>Sorry, you didnt pass the exam, better luck next time</h3>
+                    </div>
+                    <%}else{ %> 
+                      <div class="col-12 text-center mt-5">
+                        <h3>You have already booked an appointment</h3>
+                      </div> 
+                      <% } %> 
+                      
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer-->
+
+    <%- include("layouts/footer")-%> <%- include("layouts/scripts")-%>
+
+    <!-- Bootstrap core JS-->
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("layouts/header")-%>
+  <body id="page-top">
+    <!-- Navigation-->
+    <%- include("layouts/navbar")-%>
+
+    <!-- Masthead-->
+    <section class="page-section" id="contact">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-lg-8 col-xl-6 text-center">
+            <h2 class="mt-0">Register</h2>
+            <hr class="divider" />
+          </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+          <div class="col-lg-6">
+            <form action="/signUp" method="post">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="username"
+                  type="text"
+                  placeholder="username"
+                  name="username"
+                />
+                <label for="fname">Username</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="password"
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                />
+                <label for="lname">Password</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="repPassword"
+                  type="Password"
+                  placeholder="confirm password"
+                  name="repPassword"
+                />
+                <label for="lname">Confirm Password</label>
+              </div>
+              <div class="form-floating mb-3">
+                <select id="usertype" class="form-control" name="usertype">
+                  <option name="driver" selected>driver</option>
+                  <option name="examiner">examiner</option>
+                  <option name="admin">admin</option>
+                </select>
+                <label for="usertype">Select Usertype</label>
+              </div>
+
+              <!-- Message input-->
+              <%if(invalid.conPass) {%>
+              <div class="col-md-12">
+                <h6 style="color: red"><%=message%></h6>
+              </div>
+              <% } %>
+              <!-- Submit Button-->
+              <div class="d-grid">
+                <button class="btn btn-primary btn-xl" type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About-->
+
+    <%- include("layouts/footer")-%> <%- include("layouts/scripts")-%>
+
+    <!-- Bootstrap core JS-->
+  </body>
+</html>

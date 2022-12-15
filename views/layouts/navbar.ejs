@@ -1,0 +1,56 @@
+<nav
+  class="navbar navbar-shrink navbar-expand-lg navbar-light fixed-top py-3 headerDisplay"
+  id="mainNav"
+>
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand">Book Drive Test </a>
+    <button
+      class="navbar-toggler navbar-toggler-right"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto my-2 my-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <% if(authUser == "driver" && loggedIn){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/g">G-test</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/g2">G2-test</a>
+        </li>
+        <% } else if(authUser == "admin" && loggedIn){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/getResults">Result</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/appointment">Appointment</a>
+        </li>
+        <% }else if(authUser == "examiner" && loggedIn){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/examiner">Examiner</a>
+        </li>
+        <% } if(loggedIn){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">logout</a>
+        </li>
+        <% }else{ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
